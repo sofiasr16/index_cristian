@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Congratulazioni Cristian!</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+  padding:22px; font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  color:#fff; background:radial-gradient(circle at top,#46306b 0%,#171125 55%,#09070e 100%);
+}
+.page{width:min(720px,100%); text-align:center}
+.screen{display:none; animation:fade .45s ease}
+.screen.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.emoji{font-size:58px}
+h1{font-size:clamp(32px,7vw,58px);line-height:1.05;margin:10px 0 14px;font-weight:900}
+h2{font-size:clamp(28px,6vw,44px);margin:10px 0 18px;font-weight:900}
+p{font-size:19px;line-height:1.5;opacity:.9}
+.card{
+  background:rgba(255,255,255,.09); border:1px solid rgba(255,255,255,.16);
+  border-radius:28px; padding:28px 22px; box-shadow:0 18px 60px rgba(0,0,0,.3);
+}
+.prizes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:26px 0}
+.prize{background:rgba(255,255,255,.1);border-radius:20px;padding:20px 10px;min-height:145px;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.prize .big{font-size:48px;margin-bottom:9px}
+.prize strong{font-size:16px}
+.cta{
+  border:0;border-radius:999px;padding:16px 28px;min-height:52px;
+  font-size:17px;font-weight:900;cursor:pointer;background:#fff;color:#211332;
+}
+.cta:hover{transform:translateY(-2px)}
+.boxes{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:28px 0}
+.box{
+  border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.1);
+  color:#fff;border-radius:24px;padding:24px 10px;min-height:160px;
+  cursor:pointer;font-size:18px;font-weight:900;transition:.2s;
+}
+.box:hover{transform:translateY(-5px);background:rgba(255,255,255,.17)}
+.box .big{display:block;font-size:58px;margin-bottom:10px}
+#drawing{display:none}
+#drawing.show{display:block}
+#confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.conf{position:absolute;top:-20px;font-size:22px;animation:fall 1.7s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+.winner{font-size:clamp(34px,8vw,56px);font-weight:950;line-height:1.08}
+.final-title{font-size:clamp(42px,9vw,72px);font-weight:950;line-height:1.02}
+.small{font-size:18px}
+@media(max-width:560px){
+  .prizes,.boxes{grid-template-columns:1fr}
+  .prize{min-height:100px}
+  .prize .big{display:inline;margin-right:8px;font-size:38px}
+  .box{min-height:120px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <section id="s1" class="screen active">
+    <div class="card">
+      <div class="emoji">🎓🎉</div>
+      <h1>CONGRATULAZIONI CRISTIAN!</h1>
+      <p>Ti sei laureato! 🥳<br><br>
+      E adesso è arrivato il momento di scoprire<br>
+      <strong>cosa hai vinto...</strong></p>
+
+      <div class="prizes">
+        <div class="prize"><div class="big">🧤</div><strong>Guanto di Thanos</strong></div>
+        <div class="prize"><div class="big">🎶</div><strong>Giradischi</strong></div>
+        <div class="prize"><div class="big">🥂</div><strong>Serata tra amici</strong></div>
+      </div>
+
+      <button class="cta" id="start">SCOPRI IL TUO PREMIO →</button>
+    </div>
+  </section>
+
+  <section id="s2" class="screen">
+    <div class="card">
+      <div class="emoji">🎁</div>
+      <h2>SCEGLI LA TUA SCATOLA</h2>
+      <p>Una di queste contiene il tuo premio...<br><strong>Quale scegli?</strong> 👀</p>
+
+      <div class="boxes">
+        <button class="box"><span class="big">📦</span>SCATOLA 1</button>
+        <button class="box"><span class="big">📦</span>SCATOLA 2</button>
+        <button class="box"><span class="big">📦</span>SCATOLA 3</button>
+      </div>
+
+      <div id="drawing" class="card">
+        <div class="emoji">✨</div>
+        <p>Estrazione in corso...</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="s3" class="screen">
+    <div class="card">
+      <div class="emoji">🎉🥂🎉</div>
+      <h2>CONGRATULAZIONI!</h2>
+      <div class="winner">HAI VINTO...</div>
+      <p style="font-size:clamp(28px,7vw,46px);font-weight:900">🥂 UNA SERATA TRA AMICI!</p>
+      <p><em>...senza fidanzata. 😂</em></p>
+      <button class="cta" id="where">SCOPRI DOVE →</button>
+    </div>
+  </section>
+
+  <section id="s4" class="screen">
+    <div class="card">
+      <div class="emoji">🌴✈️</div>
+      <div class="final-title">CRISTIAN,<br>IBIZA TI ASPETTA</div>
+    </div>
+  </section>
+</div>
+
+<div id="confetti"></div>
+
+<script>
+const screens=[...document.querySelectorAll(".screen")];
+function show(n){
+  screens.forEach((s,i)=>s.classList.toggle("active",i===n-1));
+}
+function confetti(){
+  const root=document.getElementById("confetti");
+  const symbols=["🎉","🥂","✨","🎊","🌴","✈️","🎓"];
+  for(let i=0;i<55;i++){
+    const e=document.createElement("span");
+    e.className="conf";
+    e.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+    e.style.left=Math.random()*100+"%";
+    e.style.animationDelay=(Math.random()*.7)+"s";
+    e.style.fontSize=(16+Math.random()*18)+"px";
+    root.appendChild(e);
+    setTimeout(()=>e.remove(),2400);
+  }
+}
+document.getElementById("start").addEventListener("click",()=>show(2));
+
+document.querySelectorAll(".box").forEach(box=>{
+  box.addEventListener("click",()=>{
+    document.querySelectorAll(".box").forEach(b=>b.disabled=true);
+    const d=document.getElementById("drawing");
+    d.classList.add("show");
+    setTimeout(()=>{
+      show(3);
+      confetti();
+    },1700);
+  });
+});
+
+document.getElementById("where").addEventListener("click",()=>show(4));
+</script>
+</body>
+</html>
